@@ -4,7 +4,7 @@ body {
     width: 70%;
 }
 nav ul, footer ul {
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    font-family:'Roboto';
     padding: 0px;
     list-style: none;
     font-weight: bold;
@@ -15,22 +15,22 @@ nav ul li, footer ul li {
 }
 a {
     text-decoration: none;
-    color: #ffffff;
+    color: #1b1b1b;
 }
 a:hover {
     text-decoration: underline;
 }
 h1 {
     font-size: 3em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    font-family:'Roboto';
 }
 p {
     font-size: 1.5em;
     line-height: 1.4em;
-    color: #ffffff;
+    color: #1b1b1b;
 }
 footer {
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid #1b1b1b;
     font-size: .8em;
 }
 
