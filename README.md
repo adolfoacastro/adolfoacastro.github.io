@@ -2,7 +2,9 @@
 
 ## Welcome
 
- is where I maintain and preview the content for my website in Markdown files. As I learn and continue to develop my website, I will update [this](https://github.com/adolfoacastro/adolfoacastro.github.io/edit/master/README.md) with relevant notes and refereances.
+Hi! Welcome to my GitHub Page. As I learn new programmming languages and techniques, I am developing this website. Although developed with a minimialistic style, it will contain relevant programming techniques and meaningful content.
+
+This where I maintain and preview the content for my website in Markdown files. As I learn and continue to develop my website, I will update this README.md with relevant notes and refereances.
 
 ## Languages
 
