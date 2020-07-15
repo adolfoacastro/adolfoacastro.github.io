@@ -4,7 +4,9 @@ body {
     color: #1b1b1b;
 }
 header {
-    background: url(AdobeStock_310168822.jpeg);
+    background-image: url(AdobeStock_310168822.jpeg);
+    height: 100px;
+    min-width: 120px;
 }
 nav ul, footer ul {
     padding: 0;
