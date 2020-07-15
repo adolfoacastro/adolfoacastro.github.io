@@ -5,8 +5,10 @@ body {
 }
 header {
     background-image: url(AdobeStock_310168822.jpeg);
+    display: flex;
     height: 100px;
-    min-width: 120px;
+    min-width: 100px;
+    color: #eeeeee;
 }
 nav ul, footer ul {
     padding: 0;
