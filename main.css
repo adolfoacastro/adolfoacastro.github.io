@@ -15,8 +15,8 @@ header {
     position: relative;
 }
 
-header > h1 {
-    text-align: center;
+header>h1 {
+    text-align: match-parent;
     position: absolute;
     top: 50%;
     left: 50%;
