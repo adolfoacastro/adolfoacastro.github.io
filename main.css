@@ -1,12 +1,6 @@
-html {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%
-}
-
 body, html {
     background-color: #fafafa;
     display: block;
-    font-family: 'Nunito', sans-serif;
     font-family: 'Open Sans', sans-serif;
     line-height: 1.5;
     color: #1b1b1b;
@@ -44,7 +38,25 @@ header>h1 {
     margin-bottom: 10px;
 }
 
-nav ul, footer ul {
+main, footer {
+    margin: 0 auto;
+    max-width: 980px;
+    padding: 0 22px;
+}
+
+h1 {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+footer {
+    font-size: small;
+}
+
+.ac-gf-content {
+    border-top: thin solid #c7c7c7;
+}
+
+footer ul {
     padding: 0;
     list-style: none;
 }
@@ -52,20 +64,4 @@ nav ul, footer ul {
 a {
     text-decoration: none;
     color: #1b1b1b;
-}
-
-footer {
-    font-size: small;
-}
-
-main, footer {
-    margin: 0 auto;
-    max-width: 980px;
-    padding: 0 22px;
-    /* padding-left: calc(22px + constant(safe-area-inset-left));
-    padding-right: calc(22px + constant(safe-area-inset-right)) */
-}
-
-.ac-gf-content {
-    border-top: thin solid #c7c7c7;
 }
