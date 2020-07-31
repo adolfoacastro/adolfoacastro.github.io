@@ -5,6 +5,7 @@ html {
 
 body, html {
     background-color: #fafafa;
+    display: block;
     font-family: 'Nunito', sans-serif;
     font-family: 'Open Sans', sans-serif;
     line-height: 1.5;
@@ -38,54 +39,33 @@ header>h1 {
     transform: translate(-50%, -50%);
 }
 
-main, footer {
-    display: block;
-}
-
-main {
-    background-color: #fafafa;
+.LI-profile-badge {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 nav ul, footer ul {
     padding: 0;
     list-style: none;
-    text-decoration: none;
 }
 
 a {
-    text-decoration: underline;
+    text-decoration: none;
     color: #1b1b1b;
 }
 
 footer {
-    font-weight: normal;
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%
-}
-
-footer {
-    border-top: solid #c7c7c7;
-    font-size: 12px;
-    line-height: 1.33337;
-    font-weight: 400;
-    letter-spacing: -.01em;
-    min-width: 1024px;
-    overflow: hidden;
-    position: relative;
-    z-index: 1
+    font-size: small;
 }
 
 main, footer {
     margin: 0 auto;
     max-width: 980px;
     padding: 0 22px;
-    padding-left: calc(22px + constant(safe-area-inset-left));
-    padding-right: calc(22px + constant(safe-area-inset-right))
+    /* padding-left: calc(22px + constant(safe-area-inset-left));
+    padding-right: calc(22px + constant(safe-area-inset-right)) */
 }
 
-.LI-profile-badge {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.ac-gf-content {
+    border-top: thin solid #c7c7c7;
 }
