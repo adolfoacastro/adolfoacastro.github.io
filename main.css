@@ -1,10 +1,17 @@
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust:100%
+}
+
 body, html {
-    height: 100%;
     background-color: #fafafa;
     font-family: 'Nunito', sans-serif;
     font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
     color: #1b1b1b;
     margin: 0;
+    padding: 0;
+    min-width: 320px
 }
 
 header {
@@ -32,7 +39,7 @@ header>h1 {
 }
 
 main, footer {
-    margin: 5% 10% 5%;
+    display: block;
 }
 
 nav ul, footer ul {
@@ -48,5 +55,12 @@ a {
 
 footer {
     border-top: solid #1b1b1b;
-    /* padding-bottom: 1em; */
+}
+
+.ac-gf-content {
+    margin: 0 auto;
+    max-width: 980px;
+    padding: 0 22px;
+    padding-left: calc(22px + constant(safe-area-inset-left));
+    padding-right:calc(22px + constant(safe-area-inset-right))
 }
