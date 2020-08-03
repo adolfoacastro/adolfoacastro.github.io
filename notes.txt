@@ -1,40 +1,54 @@
 CSS Un-used Code
-/* .sticky { */
-    /* background-image: url(AdobeStock_310168822.jpeg);
-    height: 15%;
-    min-height: 80px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
-    /* position: fixed;
-    width: 100%;
-}  */
+    /* .sticky { */
+        /* background-image: url(AdobeStock_310168822.jpeg);
+        height: 15%;
+        min-height: 80px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover; */
+        /* position: fixed;
+        width: 100%;
+    }  */
 
-/* .sticky {
-    position: absolute;
-    top: 0;
-    width: 100%;
+    /* .sticky {
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .sticky + .content {
+        padding-top: 102px;
+    } */
+
+    .header {
+        /* position: absolute; */
+        /* top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 5px; */
+    }
+
+    /* .header-text {
+        border: thick solid #fafafa;
+        color: #fafafa;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 5px;
+    } */
+
+    footer ul {
+    padding: 0;
+    list-style: none;
 }
 
-.sticky + .content {
-    padding-top: 102px;
-  } */
-
-  .header {
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 5px; */
-}
-
-/* .header-text {
-    border: thick solid #fafafa;
-    color: #fafafa;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 5px;
-} */
+HTML Unused Code
+- inside of <body>
+    <script src="app.js"></script>
+    <noscript>You need to enable JavaScript to view the full site.</noscript>
+- in footer
+    <ul>
+        <li><a href="mailto:adolfoacastro@gmail.com">email</a></li>
+    </ul>
