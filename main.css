@@ -49,6 +49,10 @@ main > h1 {
     border-bottom: thin solid #c7c7c7;
 }
 
+.LI-profile-badge {
+    padding-bottom: 1em;
+}
+
 footer {
     font-size: small;
     border-top: thin solid #c7c7c7;
