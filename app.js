@@ -1,8 +1,10 @@
-'use strict'
+"use strict";
 
-console.log('Here\'s a hidden message');
+console.log("Here's a hidden message");
 
-window.onscroll = function() {myFunction()};
+window.onscroll = function () {
+  myFunction();
+};
 
 var header = document.getElementById("myHeader");
 var sticky = header.offsetTop;
@@ -14,5 +16,3 @@ function myFunction() {
     header.classList.remove("sticky");
   }
 }
-
-// https://developer.mozilla.org/en-US/docs/Web/API/Window/pageYOffset
