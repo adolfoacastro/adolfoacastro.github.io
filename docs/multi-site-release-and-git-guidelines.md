@@ -268,11 +268,74 @@ hotfix tag         → build → qa as required → *-prod      → env:prod
 | Production history / GA | merge to `main` + tag `vX.Y.Z` | **prod** |
 | Emergency fix | `hotfix/*` from `main`/tag → back-merge `develop` | **qa** → **prod** |
 | **Approve for plant rollout** | Tag + Artifactory digest | **qa** sign-off → **prod** |
+| **Plant prod deploy workflow** | **GA tag `vX.Y.Z`** (not `develop` / tip of `main`) | **prod** |
 | Rollback | Previous known-good digest | **prod** |
 
 ---
 
-## 10. Roles & responsibilities (suggested)
+## 10. Plant prod deploy workflow
+
+### 10.1 Git ref / branch to run from
+
+| Component | Run / pin from | Do not use for plant prod |
+|---|---|---|
+| **App / service repo** | GA **tag** `vX.Y.Z` (or the commit SHA that tag points to) | `develop`, untagged tip of `main`, floating `release/*` or `hotfix/*` tips |
+| **GitOps / overlays repo** (if separate) | Pinned commit SHA (or ops-repo tag) | Floating `develop` / `main` |
+| **Runtime bits on the cluster** | Artifactory **digest** for that version | `:latest`, rebuild-from-branch |
+
+The workflow may *check out* the app tag for traceability/scripts, but it must **deploy the already-promoted Artifactory digest**, not rebuild from the branch tip at click time.
+
+RC validation uses `vX.Y.Z-rc.N` toward **qa**. Plant downtime rollouts use **GA** `vX.Y.Z` (or a hotfix GA patch tag) toward **prod**.
+
+### 10.2 Workflow inputs
+
+**Required**
+
+| Input | Example | Why |
+|---|---|---|
+| **Plant / target id** | `austin` | Selects overlay, cluster/project, secrets, inventory |
+| **App / service name** | `line-orchestrator` | Which artifact and GitOps app |
+| **Version** | `v2.3.2` | Git tag / Artifactory version |
+| **Artifact digest** | `sha256:abc…` | Immutable runtime pin |
+| **Environment** | `prod` | Usually `prod` for plants; allow `qa` for dry-runs with the same workflow |
+
+**Often required by policy**
+
+| Input | Example | Why |
+|---|---|---|
+| **Change / ticket id** | `CHG012345` | Approval / audit |
+| **Approver** or manual approval gate | user/group | Human gate before downtime |
+| **Artifactory repo / path** | `docker-prod/line-orchestrator` | Promoted artifact location |
+| **OpenShift target** | cluster + namespace/project | If not fully implied by plant id |
+
+**Optional**
+
+| Input | Example | Why |
+|---|---|---|
+| **GitOps / overlay revision** | ops commit SHA | Pin manifests with the app |
+| **Dry-run** | `true` / `false` | Diff/render without apply |
+| **Notify channels** | Slack/email | Window communications |
+| **Rollback digest** | previous `sha256:…` | Pre-stage rollback for the window |
+
+**Derive when possible** (do not make operators re-type): overlay path from plant id, cluster/project from inventory, image pull ref from Artifactory path + digest, currently installed version for diff/rollback, compatibility allow-list for that plant/version.
+
+### 10.3 Minimal happy-path signature
+
+```text
+deploy-to-plant(
+  plant:        austin
+  service:      line-orchestrator
+  version:      v2.3.2          # workflow ref = this GA tag
+  digest:       sha256:abc…     # what actually runs
+  environment:  prod
+  change_id:    CHG012345
+  dry_run:      false
+)
+```
+
+---
+
+## 11. Roles & responsibilities (suggested)
 
 | Role | Responsibility |
 |---|---|
@@ -280,11 +343,11 @@ hotfix tag         → build → qa as required → *-prod      → env:prod
 | Release manager | Cut `release/*` / `hotfix/*`, tags, Artifactory promotion gates |
 | QA | Sign off **digests** in **qa**; gate promotion to **prod** |
 | Platform / OpenShift | Env + plant overlays, GitOps, secrets/config per env |
-| Plant IT / ops | Downtime deploy of pinned prod digest; update inventory |
+| Plant IT / ops | Run plant deploy workflow with tag + digest; update inventory |
 
 ---
 
-## 11. Decision guide
+## 12. Decision guide
 
 **“Where do I commit?”**
 
@@ -298,13 +361,22 @@ hotfix tag         → build → qa as required → *-prod      → env:prod
 - **test:** builds from `develop` or `release/*` (prefer pinned build ids)  
 - **qa / prod:** immutable RC/GA digests only  
 
+**“What ref does the plant deploy workflow use?”**
+
+- App: **GA tag `vX.Y.Z`** (or that commit). Ops overlays: **pinned SHA**. Cluster: **Artifactory digest**.  
+- Not `develop`, not untagged `main`.
+
+**“What inputs does that workflow need?”**
+
+- At minimum: **plant**, **service**, **version**, **digest**, **environment** (`prod`), plus change ticket / approval as required. Derive overlay and cluster from plant catalogs when possible.
+
 **“OpenShift differs at one plant?”**
 
 - Overlay/values — not a plant app branch.
 
 **“Central service with one plant?”**
 
-- Same GitFlow and env ladder; one overlay and one inventory pin.
+- Same GitFlow and env ladder; one overlay and one inventory pin; same deploy inputs with a single plant id.
 
 **“Why keep both `develop` and `main` if tags are the real prod pin?”**
 
@@ -312,19 +384,20 @@ hotfix tag         → build → qa as required → *-prod      → env:prod
 
 ---
 
-## 12. Summary policy (one page)
+## 13. Summary policy (one page)
 
 1. Use **GitFlow:** `develop` + `main` + `release/*` + `hotfix/*` + tags.  
 2. Map **dev → test → qa → prod** to increasing immutability; qa/prod are digest-pinned.  
 3. **Prod** (plants or central) installs Artifactory digests from **GA tags on `main` history**, not floating branches.  
-4. One application line; OpenShift drift in **env/plant overlays**.  
-5. Hotfix from **`main`/prod tag**, then back-merge to **`develop`** (and open releases).  
-6. **Build once, promote across env repos, inventory per target.**  
-7. Multi-plant and single-plant services share this playbook; only pin/overlay cardinality changes.
+4. Plant deploy workflow runs from **tag + digest** (+ pinned overlay revision); inputs center on plant, service, version, digest, env, change id.  
+5. One application line; OpenShift drift in **env/plant overlays**.  
+6. Hotfix from **`main`/prod tag**, then back-merge to **`develop`** (and open releases).  
+7. **Build once, promote across env repos, inventory per target.**  
+8. Multi-plant and single-plant services share this playbook; only pin/overlay cardinality changes.
 
 ---
 
-## 13. Glossary
+## 14. Glossary
 
 | Term | Meaning |
 |---|---|
@@ -333,6 +406,7 @@ hotfix tag         → build → qa as required → *-prod      → env:prod
 | RC | Release candidate — tagged build under **qa** approval |
 | Hotfix | Patch from `main`/prod tag for urgent repair |
 | Env ladder | `dev` → `test` → `qa` → `prod` promotion path |
+| Plant deploy ref | GA git tag for the app workflow; Artifactory digest on the cluster |
 | Overlay | Env- or plant-specific OpenShift/Kustomize/Helm customization |
 | Promote | Move the same artifact to a higher Artifactory repo without rebuilding |
 | Digest | Content-addressed id (`sha256:…`) of an immutable artifact |
